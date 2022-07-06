@@ -64,6 +64,7 @@ tar -czvf package-$BUILD_ID.tar.gz bin/'''
     stage('archive') {
       steps {
         archiveArtifacts '*.tar.gz'
+        sh 'rm -rf *'
       }
     }
 
