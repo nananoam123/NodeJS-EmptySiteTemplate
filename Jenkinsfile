@@ -39,8 +39,8 @@ pipeline {
 
         stage('test app') {
           steps {
-            sh '''curl localhost:8081
-if [ $(echo $?) == 0 ];
+            sh '''curl htttp://localhost:8081
+if [ $(echo $?) -eq 0 ];
 then 
    echo "success"
    ps -ef | grep node | awk \'{print $2}\' | xargs kill
