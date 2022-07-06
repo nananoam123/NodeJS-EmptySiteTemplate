@@ -40,7 +40,7 @@ pipeline {
         stage('test app') {
           steps {
             sh '''curl localhost:8081
-sleep 5s
+sleep 5
 if [ $(echo $?) -eq 0 ];
 then 
    echo "success"
