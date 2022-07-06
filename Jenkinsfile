@@ -23,7 +23,7 @@ pipeline {
       }
     }
 
-   stage('Build') {
+    stage('Build') {
       steps {
         sh 'npm install'
       }
@@ -42,7 +42,7 @@ pipeline {
 
         stage('check if app is running') {
           steps {
-            sh '''sleep 5
+            sh '''
 curl localhost:8081 
 if [ $(echo $?) -eq 0 ]; 
 then
