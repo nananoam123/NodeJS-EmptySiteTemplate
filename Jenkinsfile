@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+  agent {
+    node {
+      label 'centos7'
+    }
+
+  }
   stages {
     stage('checkout code') {
       parallel {
