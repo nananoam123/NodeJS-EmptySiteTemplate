@@ -40,12 +40,12 @@ pipeline {
         stage('test app') {
           steps {
             sh '''curl localhost:8081
-if [[ $(echo $?) == 0 ]] then 
+if [[ $(echo $?) == 0 ]];
+then 
    echo "success"
    ps -ef | grep node | awk {"print $2"}
    exit 0
 else 
-
  echo "fail"
  exit 1'''
           }
