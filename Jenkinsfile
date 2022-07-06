@@ -54,5 +54,17 @@ else
       }
     }
 
+    stage('package ') {
+      steps {
+        sh 'tar -czvf package-$BUILD_ID.tar.gz'
+      }
+    }
+
+    stage('archive') {
+      steps {
+        archiveArtifacts '*.tar.gz'
+      }
+    }
+
   }
 }
