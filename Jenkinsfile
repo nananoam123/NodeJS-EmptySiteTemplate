@@ -23,46 +23,51 @@ pipeline {
       }
     }
 
-    stage('Build') {
+   stage('Build') {
       steps {
         sh 'npm install'
       }
     }
 
-    stage('test') {
+    stage('Test App') {
       parallel {
-        stage('run app') {
+        stage('Run the App') {
           steps {
-            sh 'node server.js'
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+              sh 'node server.js'
+            }
+
           }
         }
 
-        stage('test app') {
+        stage('check if app is running') {
           steps {
-            sh '''curl localhost:8081
-sleep 5
-if [ $(echo $?) -eq 0 ];
-then 
-   echo "success"
-   ps -ef | grep node | awk \'{print $2}\' | head -n 1 | xargs kill
-   exit 0
+            sh '''sleep 5
+curl localhost:8081 
+if [ $(echo $?) -eq 0 ]; 
+then
+  echo "success" 
+  ps -ef | grep node | awk \'{print $2}\' | head -n 1 | xargs kill
+  exit 0
 else 
- echo "fail"
- exit 1'''
+  echo "failure"
+  exit 1
+fi  '''
           }
         }
 
       }
     }
 
-    stage('package ') {
+    stage('Package') {
       steps {
-        sh '''mkdir bin && mv * bin/
-tar -czvf package-$BUILD_ID.tar.gz bin/'''
+        sh '''mkdir target && rsync -Rr . target/
+tar -czvf package-$BUILD_ID.tar.gz target/
+'''
       }
     }
 
-    stage('archive') {
+    stage('Archive Artifact') {
       steps {
         archiveArtifacts '*.tar.gz'
         sh 'rm -rf *'
