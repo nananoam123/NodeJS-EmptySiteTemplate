@@ -10,7 +10,7 @@ pipeline {
       parallel {
         stage('checkout code') {
           steps {
-            cleanWS()
+            
             git(credentialsId: 'github', url: 'git@github.com:nananoam123/NodeJS-EmptySiteTemplate.git', branch: 'master')
           }
         }
@@ -32,7 +32,7 @@ pipeline {
 
     stage('test') {
       steps {
-        sh 'node server.js'
+        sh "node server.js&"
       }
     }
 
