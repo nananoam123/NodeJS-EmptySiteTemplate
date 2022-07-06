@@ -11,6 +11,7 @@ pipeline {
         stage('checkout code') {
           steps {
             git(credentialsId: 'github', url: 'git@github.com:nananoam123/NodeJS-EmptySiteTemplate.git', branch: 'master')
+            cleanWs(cleanWhenSuccess: true)
           }
         }
 
