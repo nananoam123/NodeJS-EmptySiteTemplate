@@ -39,7 +39,7 @@ pipeline {
 
         stage('test app') {
           steps {
-            sh '''curl 127.0.0.1:8081
+            sh '''curl localhost:8081
 if [ $(echo $?) -eq 0 ];
 then 
    echo "success"
