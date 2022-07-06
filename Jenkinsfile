@@ -42,7 +42,7 @@ pipeline {
 
         stage('check if app is running') {
           steps {
-            sh '''
+            sh '''sleep 5
 curl localhost:8081 
 if [ $(echo $?) -eq 0 ]; 
 then
