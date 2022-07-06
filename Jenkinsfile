@@ -40,10 +40,10 @@ pipeline {
         stage('test app') {
           steps {
             sh '''curl localhost:8081
-if [[ $(echo $?) == 0 ]];
+if [ $(echo $?) == 0 ];
 then 
    echo "success"
-   ps -ef | grep node | awk {"print $2"}
+   ps -ef | grep node | awk \'{print $2}\' | xargs kill
    exit 0
 else 
  echo "fail"
